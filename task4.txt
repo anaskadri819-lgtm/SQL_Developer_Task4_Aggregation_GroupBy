@@ -1,0 +1,96 @@
+/* 
+   TASK 4 – Aggregation, Grouping, HAVING
+   SQL Developer Internship – Elevate Labs
+*/
+
+/* -------------------------------------------------------
+   1. Aggregate Functions on Numeric Columns
+-------------------------------------------------------- */
+
+-- SUM()
+SELECT SUM(salary) AS total_salary
+FROM employees;
+
+-- AVG()
+SELECT AVG(salary) AS average_salary
+FROM employees;
+
+-- COUNT()
+SELECT COUNT(*) AS total_employees
+FROM employees;
+
+-- MIN() and MAX()
+SELECT MIN(salary) AS lowest_salary,
+       MAX(salary) AS highest_salary
+FROM employees;
+
+
+/* -------------------------------------------------------
+   2. GROUP BY Usage
+-------------------------------------------------------- */
+
+-- Total salary by department
+SELECT department, SUM(salary) AS total_salary
+FROM employees
+GROUP BY department;
+
+-- Count employees in each department
+SELECT department, COUNT(*) AS number_of_employees
+FROM employees
+GROUP BY department;
+
+
+/* -------------------------------------------------------
+   3. Filtering Groups using HAVING
+-------------------------------------------------------- */
+
+-- Departments where total salary > 50,000
+SELECT department, SUM(salary) AS total_salary
+FROM employees
+GROUP BY department
+HAVING SUM(salary) > 50000;
+
+-- Departments having more than 5 employees
+SELECT department, COUNT(*) AS employee_count
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 5;
+
+
+/* -------------------------------------------------------
+   4. GROUP BY Multiple Columns
+-------------------------------------------------------- */
+
+SELECT department, job_role, COUNT(*) AS count_role
+FROM employees
+GROUP BY department, job_role;
+
+
+/* -------------------------------------------------------
+   5. COUNT(*) vs COUNT(column)
+-------------------------------------------------------- */
+
+-- Counts all rows
+SELECT COUNT(*) AS total_rows
+FROM employees;
+
+-- Ignores NULL salary values
+SELECT COUNT(salary) AS salary_count
+FROM employees;
+
+
+/* -------------------------------------------------------
+   6. Using ROUND() Function
+-------------------------------------------------------- */
+
+SELECT department, ROUND(AVG(salary), 2) AS average_salary_rounded
+FROM employees
+GROUP BY department;
+
+
+/* -------------------------------------------------------
+   7. Count DISTINCT Values
+-------------------------------------------------------- */
+
+SELECT COUNT(DISTINCT department) AS total_departments
+FROM employees;
